@@ -1,6 +1,8 @@
 module cimgui_impl_glfw_vulkan;
 // ImGui GLFW binding with Vulkan + shaders
 
+import neobc.array;
+
 // Missing features:
 //  [ ] User texture binding. Changes of ImTextureID aren't supported by this
 //  binding! See https://github.com/ocornut/imgui/pull/914
@@ -552,7 +554,9 @@ bool ImGui_ImplGlfwVulkan_CreateDeviceObjects()
         ImGui_ImplGlfwVulkan_VkResult(err);
     }
 
-    VkPipelineShaderStageCreateInfo[2] stage;
+    import core.stdc.stdlib;
+
+    auto stage = Array!(VkPipelineShaderStageCreateInfo)(2);
     stage[0].sType = VkStructureType.pipelineShaderStageCreateInfo;
     stage[0].stage = VkShaderStageFlag.vertexBit;
     stage[0].module_ = vert_module;
@@ -562,11 +566,11 @@ bool ImGui_ImplGlfwVulkan_CreateDeviceObjects()
     stage[1].module_ = frag_module;
     stage[1].pName = "main";
 
-    VkVertexInputBindingDescription[1] binding_desc;
+    auto binding_desc = Array!(VkVertexInputBindingDescription)(1);
     binding_desc[0].stride = ImDrawVert.sizeof;
     binding_desc[0].inputRate = VkVertexInputRate.vertex;
 
-    VkVertexInputAttributeDescription[3] attribute_desc;
+    auto attribute_desc = Array!(VkVertexInputAttributeDescription)(3);
     attribute_desc[0].location = 0;
     attribute_desc[0].binding = binding_desc[0].binding;
     attribute_desc[0].format = VkFormat.r32g32Sfloat;
@@ -580,77 +584,79 @@ bool ImGui_ImplGlfwVulkan_CreateDeviceObjects()
     attribute_desc[2].format = VkFormat.r8g8b8a8Unorm;
     attribute_desc[2].offset = cast(uint32_t)(&(cast(ImDrawVert*)0).col);
 
-    VkPipelineVertexInputStateCreateInfo vertex_info = {};
-    vertex_info.sType = VkStructureType.pipelineVertexInputStateCreateInfo;
-    vertex_info.vertexBindingDescriptionCount = 1;
-    vertex_info.pVertexBindingDescriptions = binding_desc.ptr;
-    vertex_info.vertexAttributeDescriptionCount = 3;
-    vertex_info.pVertexAttributeDescriptions = attribute_desc.ptr;
+    // VkPipelineVertexInputStateCreateInfo vertex_info = {};
+    // vertex_info.sType = VkStructureType.pipelineVertexInputStateCreateInfo;
+    // vertex_info.vertexBindingDescriptionCount = 1;
+    // vertex_info.pVertexBindingDescriptions = binding_desc.ptr;
+    // vertex_info.vertexAttributeDescriptionCount = 3;
+    // vertex_info.pVertexAttributeDescriptions = attribute_desc.ptr;
 
-    VkPipelineInputAssemblyStateCreateInfo ia_info = {};
-    ia_info.sType = VkStructureType.pipelineInputAssemblyStateCreateInfo;
-    ia_info.topology = VkPrimitiveTopology.triangleList;
+    // VkPipelineInputAssemblyStateCreateInfo ia_info = {};
+    // ia_info.sType = VkStructureType.pipelineInputAssemblyStateCreateInfo;
+    // ia_info.topology = VkPrimitiveTopology.triangleList;
 
-    VkPipelineViewportStateCreateInfo viewport_info = {};
-    viewport_info.sType = VkStructureType.pipelineViewportStateCreateInfo;
-    viewport_info.viewportCount = 1;
-    viewport_info.scissorCount = 1;
+    // VkPipelineViewportStateCreateInfo viewport_info = {};
+    // viewport_info.sType = VkStructureType.pipelineViewportStateCreateInfo;
+    // viewport_info.viewportCount = 1;
+    // viewport_info.scissorCount = 1;
 
-    VkPipelineRasterizationStateCreateInfo raster_info = {};
-    raster_info.sType = VkStructureType.pipelineRasterizationStateCreateInfo;
-    raster_info.polygonMode = VkPolygonMode.fill;
-    raster_info.cullMode = VkCullModeFlag.none;
-    raster_info.frontFace = VkFrontFace.counterClockwise;
-    raster_info.lineWidth = 1.0f;
+    // VkPipelineRasterizationStateCreateInfo raster_info = {};
+    // raster_info.sType = VkStructureType.pipelineRasterizationStateCreateInfo;
+    // raster_info.polygonMode = VkPolygonMode.fill;
+    // raster_info.cullMode = VkCullModeFlag.none;
+    // raster_info.frontFace = VkFrontFace.counterClockwise;
+    // raster_info.lineWidth = 1.0f;
 
-    VkPipelineMultisampleStateCreateInfo ms_info = {};
-    ms_info.sType = VkStructureType.pipelineMultisampleStateCreateInfo;
-    ms_info.rasterizationSamples = VkSampleCountFlag.i1Bit;
+    // VkPipelineMultisampleStateCreateInfo ms_info = {};
+    // ms_info.sType = VkStructureType.pipelineMultisampleStateCreateInfo;
+    // ms_info.rasterizationSamples = VkSampleCountFlag.i1Bit;
 
-    VkPipelineColorBlendAttachmentState[1] color_attachment;
-    color_attachment[0].blendEnable = VK_TRUE;
-    color_attachment[0].srcColorBlendFactor = VkBlendFactor.srcAlpha;
-    color_attachment[0].dstColorBlendFactor = VkBlendFactor.oneMinusSrcAlpha;
-    color_attachment[0].colorBlendOp = VkBlendOp.add;
-    color_attachment[0].srcAlphaBlendFactor = VkBlendFactor.oneMinusSrcAlpha;
-    color_attachment[0].dstAlphaBlendFactor = VkBlendFactor.zero;
-    color_attachment[0].alphaBlendOp = VkBlendOp.add;
-    color_attachment[0].colorWriteMask = VkColorComponentFlag.rBit | VkColorComponentFlag.gBit | VkColorComponentFlag.bBit | VkColorComponentFlag.aBit;
+    // auto color_attachment = Array!(VkPipelineColorBlendAttachmentState)(1);
+    // color_attachment[0].blendEnable = VK_TRUE;
+    // color_attachment[0].srcColorBlendFactor = VkBlendFactor.srcAlpha;
+    // color_attachment[0].dstColorBlendFactor = VkBlendFactor.oneMinusSrcAlpha;
+    // color_attachment[0].colorBlendOp = VkBlendOp.add;
+    // color_attachment[0].srcAlphaBlendFactor = VkBlendFactor.oneMinusSrcAlpha;
+    // color_attachment[0].dstAlphaBlendFactor = VkBlendFactor.zero;
+    // color_attachment[0].alphaBlendOp = VkBlendOp.add;
+    // color_attachment[0].colorWriteMask = VkColorComponentFlag.rBit | VkColorComponentFlag.gBit | VkColorComponentFlag.bBit | VkColorComponentFlag.aBit;
 
-    VkPipelineDepthStencilStateCreateInfo depth_info = {};
-    depth_info.sType = VkStructureType.pipelineDepthStencilStateCreateInfo;
+    // VkPipelineDepthStencilStateCreateInfo depth_info = {};
+    // depth_info.sType = VkStructureType.pipelineDepthStencilStateCreateInfo;
 
-    VkPipelineColorBlendStateCreateInfo blend_info = {};
-    blend_info.sType = VkStructureType.pipelineColorBlendStateCreateInfo;
-    blend_info.attachmentCount = 1;
-    blend_info.pAttachments = color_attachment.ptr;
+    // VkPipelineColorBlendStateCreateInfo blend_info = {};
+    // blend_info.sType = VkStructureType.pipelineColorBlendStateCreateInfo;
+    // blend_info.attachmentCount = 1;
+    // blend_info.pAttachments = color_attachment.ptr;
 
-    VkDynamicState[2] dynamic_states = [ VkDynamicState.viewport, VkDynamicState.scissor ];
-    VkPipelineDynamicStateCreateInfo dynamic_state = {};
-    dynamic_state.sType = VkStructureType.pipelineDynamicStateCreateInfo;
-    dynamic_state.dynamicStateCount = 2;
-    dynamic_state.pDynamicStates = dynamic_states.ptr;
+    // auto dynamic_states = Array!(VkDynamicState)(2);
+    // dynamic_states[0] = VkDynamicState.viewport;
+    // dynamic_states[1] = VkDynamicState.scissor;
+    // VkPipelineDynamicStateCreateInfo dynamic_state = {};
+    // dynamic_state.sType = VkStructureType.pipelineDynamicStateCreateInfo;
+    // dynamic_state.dynamicStateCount = 2;
+    // dynamic_state.pDynamicStates = dynamic_states.ptr;
 
-    VkGraphicsPipelineCreateInfo info = {};
-    info.sType = VkStructureType.graphicsPipelineCreateInfo;
-    info.flags = g_PipelineCreateFlags;
-    info.stageCount = 2;
-    info.pStages = stage.ptr;
-    info.pVertexInputState = &vertex_info;
-    info.pInputAssemblyState = &ia_info;
-    info.pViewportState = &viewport_info;
-    info.pRasterizationState = &raster_info;
-    info.pMultisampleState = &ms_info;
-    info.pDepthStencilState = &depth_info;
-    info.pColorBlendState = &blend_info;
-    info.pDynamicState = &dynamic_state;
-    info.layout = g_PipelineLayout;
-    info.renderPass = g_RenderPass;
-    err = vkCreateGraphicsPipelines(g_Device, g_PipelineCache, 1, &info, g_Allocator, &g_Pipeline);
-    ImGui_ImplGlfwVulkan_VkResult(err);
+    // VkGraphicsPipelineCreateInfo info = {};
+    // info.sType = VkStructureType.graphicsPipelineCreateInfo;
+    // info.flags = g_PipelineCreateFlags;
+    // info.stageCount = 2;
+    // info.pStages = stage.ptr;
+    // info.pVertexInputState = &vertex_info;
+    // info.pInputAssemblyState = &ia_info;
+    // info.pViewportState = &viewport_info;
+    // info.pRasterizationState = &raster_info;
+    // info.pMultisampleState = &ms_info;
+    // info.pDepthStencilState = &depth_info;
+    // info.pColorBlendState = &blend_info;
+    // info.pDynamicState = &dynamic_state;
+    // info.layout = g_PipelineLayout;
+    // info.renderPass = g_RenderPass;
+    // err = vkCreateGraphicsPipelines(g_Device, g_PipelineCache, 1, &info, g_Allocator, &g_Pipeline);
+    // ImGui_ImplGlfwVulkan_VkResult(err);
 
-    vkDestroyShaderModule(g_Device, vert_module, g_Allocator);
-    vkDestroyShaderModule(g_Device, frag_module, g_Allocator);
+    // vkDestroyShaderModule(g_Device, vert_module, g_Allocator);
+    // vkDestroyShaderModule(g_Device, frag_module, g_Allocator);
 
     return true;
 }
@@ -698,7 +704,7 @@ nothrow void ImGui_ImplGlfw_InstallCallbacks(GLFWwindow* window)
     glfwSetCharCallback(window,        &ImGui_ImplGlfw_CharCallback);
 }
 
-bool    ImGui_ImplGlfwVulkan_Init(GLFWwindow* window, bool install_callbacks, ImGui_ImplGlfwVulkan_Init_Data *init_data)
+public bool    ImGui_ImplGlfwVulkan_Init(GLFWwindow* window, bool install_callbacks, ImGui_ImplGlfwVulkan_Init_Data *init_data)
 {
     g_Allocator = init_data.allocator;
     g_Gpu = init_data.gpu;
@@ -742,9 +748,9 @@ bool    ImGui_ImplGlfwVulkan_Init(GLFWwindow* window, bool install_callbacks, Im
     io.GetClipboardTextFn = &ImGui_ImplGlfwVulkan_GetClipboardText;
     io.ClipboardUserData = g_Window;
 
-version(Windows) {
+  version(Windows) {
     io.ImeWindowHandle = glfwGetWin32Window(g_Window);
-}
+  }
 
 
     // Load cursors
@@ -840,7 +846,7 @@ nothrow void ImGui_ImplGlfwVulkan_Render(VkCommandBuffer command_buffer)
     g_FrameIndex = (g_FrameIndex + 1) % ImguiVkQueuedFrames;
 }
 
-uint32_t[] __glsl_shader_vert_spv = [
+immutable uint32_t[] __glsl_shader_vert_spv = [
   0x07230203, 0x00010000, 0x00080001, 0x0000002e, 0x00000000, 0x00020011,
   0x00000001, 0x0006000b, 0x00000001, 0x4c534c47, 0x6474732e, 0x3035342e,
   0x00000000, 0x0003000e, 0x00000000, 0x00000001, 0x000a000f, 0x00000000,
@@ -897,7 +903,7 @@ uint32_t[] __glsl_shader_vert_spv = [
   0x0000000d, 0x0003003e, 0x0000002d, 0x0000002c, 0x000100fd, 0x00010038
 ];
 
-uint32_t[] __glsl_shader_frag_spv = [
+immutable uint32_t[] __glsl_shader_frag_spv = [
   0x07230203, 0x00010000, 0x00080001, 0x0000001e, 0x00000000, 0x00020011,
   0x00000001, 0x0006000b, 0x00000001, 0x4c534c47, 0x6474732e, 0x3035342e,
   0x00000000, 0x0003000e, 0x00000000, 0x00000001, 0x0007000f, 0x00000004,
