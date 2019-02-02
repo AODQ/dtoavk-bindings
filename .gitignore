@@ -1,4 +1,4 @@
 .dub/
 dub.selections.json
 
-libdtoavk.a
+libdtoavk-bindings.a
