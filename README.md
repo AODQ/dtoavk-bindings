@@ -8,3 +8,8 @@ Really this should be split out into multiple modules, possibly BindBC, but
 these don't exist as dynamic bindings so they really aren't polished for
 external usage.  I don't plan on allowing dynamic bindings to work with dtoavk
 any time soon either.
+
+Currently support:
+  - vulkan
+  - glfw
+  - imgui through cimgui, with glfw+vulkan implementation
