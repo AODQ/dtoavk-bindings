@@ -1,0 +1,15 @@
+name "dtoavk"
+description "Global Illumination with Vk-RTX technology"
+authors "aodq"
+copyright "nil"
+license "MIT or UNLICENSE"
+
+dependency "bindbc-glfw" version="~>0.2.0"
+versions "BindGLFW_Static" "GLFW_32"
+subConfiguration "bindbc-glfw" "staticBC"
+
+libs "glfw" "vulkan" "cimgui"
+
+dflags "-betterC"
+
+postBuildCommands "cd shaders; glslangValidator -V ray.rmiss -V ray.rchit -V ray.rgen"
