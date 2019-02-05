@@ -755,7 +755,7 @@ struct ImColor
     ImVec4 Value;
 }
 
-alias ImDrawCallback = extern(C) nothrow void function (const(ImDrawList)* parent_list, const(ImDrawCmd)* cmd);
+alias ImDrawCallback = void function (const(ImDrawList)* parent_list, const(ImDrawCmd)* cmd);
 
 struct ImDrawCmd
 {
