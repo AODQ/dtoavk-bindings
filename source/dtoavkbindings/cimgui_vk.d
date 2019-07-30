@@ -15,7 +15,7 @@
 // any modification.  IF YOU FEEL YOU NEED TO MAKE ANY CHANGE TO THIS CODE,
 // please share them and your feedback at https://github.com/ocornut/imgui/
 
-import vk;
+import dtoavkbindings.vk;
 
 import core.stdc.stdint;
 import cimgui : ImDrawData;

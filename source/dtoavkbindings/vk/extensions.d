@@ -1,8 +1,8 @@
-module vk.extensions;
+module dtoavkbindings.vk.extensions;
 
 import core.stdc.stdint;
 
-import vk;
+import dtoavkbindings.vk;
 
 extern (C):
 

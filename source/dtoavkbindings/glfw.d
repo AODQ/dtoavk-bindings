@@ -1,9 +1,9 @@
-module glfw;
+module dtoavkbindings.glfw;
 
 public import bindbc.glfw;
 
 import core.stdc.stdint;
-import vk;
+import dtoavkbindings.vk;
 
 version ( linux ) {
   mixin(bindGLFW_X11);

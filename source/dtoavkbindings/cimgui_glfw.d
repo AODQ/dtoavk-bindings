@@ -24,7 +24,7 @@
 
 import core.stdc.stdint;
 
-import glfw : GLFWwindow;
+import dtoavkbindings.glfw : GLFWwindow;
 
 extern(C) bool     ImGui_ImplGlfw_InitForOpenGL(
   GLFWwindow* window, bool install_callbacks

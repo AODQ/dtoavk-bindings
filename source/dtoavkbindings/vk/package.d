@@ -1,6 +1,6 @@
-module vk;
+module dtoavkbindings.vk;
 
-public import vk.extensions;
+public import dtoavkbindings.vk.extensions;
 
 import core.stdc.config;
 
