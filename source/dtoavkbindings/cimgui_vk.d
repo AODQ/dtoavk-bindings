@@ -1,3 +1,4 @@
+module dtoavkbindings.cimgui_vk;
 // dear imgui: Renderer for Vulkan
 // This needs to be used along with a Platform Binding (e.g. GLFW, SDL, Win32,
 // custom..)
@@ -18,7 +19,7 @@
 import dtoavkbindings.vk;
 
 import core.stdc.stdint;
-import cimgui : ImDrawData;
+import dtoavkbindings.cimgui : ImDrawData;
 
 enum IMGUI_VK_QUEUED_FRAMES =      2;
 
