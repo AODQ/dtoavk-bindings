@@ -103,106 +103,106 @@ struct cgltf_options
 
 enum cgltf_result
 {
-  cgltf_result_success = 0,
-  cgltf_result_data_too_short = 1,
-  cgltf_result_unknown_format = 2,
-  cgltf_result_invalid_json = 3,
-  cgltf_result_invalid_gltf = 4,
-  cgltf_result_invalid_options = 5,
-  cgltf_result_file_not_found = 6,
-  cgltf_result_io_error = 7,
-  cgltf_result_out_of_memory = 8
+  success = 0,
+  data_too_short = 1,
+  unknown_format = 2,
+  invalid_json = 3,
+  invalid_gltf = 4,
+  invalid_options = 5,
+  file_not_found = 6,
+  io_error = 7,
+  out_of_memory = 8
 }
 
 enum cgltf_buffer_view_type
 {
-  cgltf_buffer_view_type_invalid = 0,
-  cgltf_buffer_view_type_indices = 1,
-  cgltf_buffer_view_type_vertices = 2
+  invalid = 0,
+  indices = 1,
+  vertices = 2
 }
 
 enum cgltf_attribute_type
 {
-  cgltf_attribute_type_invalid = 0,
-  cgltf_attribute_type_position = 1,
-  cgltf_attribute_type_normal = 2,
-  cgltf_attribute_type_tangent = 3,
-  cgltf_attribute_type_texcoord = 4,
-  cgltf_attribute_type_color = 5,
-  cgltf_attribute_type_joints = 6,
-  cgltf_attribute_type_weights = 7
+  invalid = 0,
+  position = 1,
+  normal = 2,
+  tangent = 3,
+  texcoord = 4,
+  color = 5,
+  joints = 6,
+  weights = 7
 }
 
 enum cgltf_component_type
 {
-  cgltf_component_type_invalid = 0,
-  cgltf_component_type_r_8 = 1, /* BYTE */
-  cgltf_component_type_r_8u = 2, /* UNSIGNED_BYTE */
-  cgltf_component_type_r_16 = 3, /* SHORT */
-  cgltf_component_type_r_16u = 4, /* UNSIGNED_SHORT */
-  cgltf_component_type_r_32u = 5, /* UNSIGNED_INT */
-  cgltf_component_type_r_32f = 6 /* FLOAT */
+  invalid = 0,
+  r_8 = 1, /* BYTE */
+  r_8u = 2, /* UNSIGNED_BYTE */
+  r_16 = 3, /* SHORT */
+  r_16u = 4, /* UNSIGNED_SHORT */
+  r_32u = 5, /* UNSIGNED_INT */
+  r_32f = 6 /* FLOAT */
 }
 
 enum cgltf_type
 {
-  cgltf_type_invalid = 0,
-  cgltf_type_scalar = 1,
-  cgltf_type_vec2 = 2,
-  cgltf_type_vec3 = 3,
-  cgltf_type_vec4 = 4,
-  cgltf_type_mat2 = 5,
-  cgltf_type_mat3 = 6,
-  cgltf_type_mat4 = 7
+  invalid = 0,
+  scalar = 1,
+  vec2 = 2,
+  vec3 = 3,
+  vec4 = 4,
+  mat2 = 5,
+  mat3 = 6,
+  mat4 = 7
 }
 
 enum cgltf_primitive_type
 {
-  cgltf_primitive_type_points = 0,
-  cgltf_primitive_type_lines = 1,
-  cgltf_primitive_type_line_loop = 2,
-  cgltf_primitive_type_line_strip = 3,
-  cgltf_primitive_type_triangles = 4,
-  cgltf_primitive_type_triangle_strip = 5,
-  cgltf_primitive_type_triangle_fan = 6
+  points = 0,
+  lines = 1,
+  line_loop = 2,
+  line_strip = 3,
+  triangles = 4,
+  triangle_strip = 5,
+  triangle_fan = 6
 }
 
 enum cgltf_alpha_mode
 {
-  cgltf_alpha_mode_opaque = 0,
-  cgltf_alpha_mode_mask = 1,
-  cgltf_alpha_mode_blend = 2
+  opaque = 0,
+  mask = 1,
+  blend = 2
 }
 
 enum cgltf_animation_path_type
 {
-  cgltf_animation_path_type_invalid = 0,
-  cgltf_animation_path_type_translation = 1,
-  cgltf_animation_path_type_rotation = 2,
-  cgltf_animation_path_type_scale = 3,
-  cgltf_animation_path_type_weights = 4
+  invalid = 0,
+  translation = 1,
+  rotation = 2,
+  scale = 3,
+  weights = 4
 }
 
 enum cgltf_interpolation_type
 {
-  cgltf_interpolation_type_linear = 0,
-  cgltf_interpolation_type_step = 1,
-  cgltf_interpolation_type_cubic_spline = 2
+  linear = 0,
+  step = 1,
+  cubic_spline = 2
 }
 
 enum cgltf_camera_type
 {
-  cgltf_camera_type_invalid = 0,
-  cgltf_camera_type_perspective = 1,
-  cgltf_camera_type_orthographic = 2
+  invalid = 0,
+  perspective = 1,
+  orthographic = 2
 }
 
 enum cgltf_light_type
 {
-  cgltf_light_type_invalid = 0,
-  cgltf_light_type_directional = 1,
-  cgltf_light_type_point = 2,
-  cgltf_light_type_spot = 3
+  invalid = 0,
+  directional = 1,
+  point = 2,
+  spot = 3
 }
 
 struct cgltf_extras
