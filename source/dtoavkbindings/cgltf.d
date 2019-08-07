@@ -433,7 +433,7 @@ struct cgltf_light
   cgltf_float spot_outer_cone_angle;
 }
 
-struct cgltf_node_
+struct cgltf_node
 {
   char* name;
   cgltf_node* parent;
