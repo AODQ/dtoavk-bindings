@@ -6,11 +6,9 @@ license "MIT"
 
 dependency "bindbc-glfw" version="~>0.2.0"
 dependency "neobc" version=">=0.0.0"
-dependency "bindbc-opengl" version="~>0.9.0"
-versions "GL_46"
 versions "BindGLFW_Static" "GLFW_32"
 subConfiguration "bindbc-glfw" "staticBC"
 
-libs "glfw" "vulkan" "cimgui" "png" "tinyobj"
+libs "glfw" "vulkan" "imgui" "png" "tinyobj" "cimgui"
 
 dflags "-betterC"

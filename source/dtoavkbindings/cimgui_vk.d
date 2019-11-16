@@ -21,8 +21,6 @@ import dtoavkbindings.vk;
 import core.stdc.stdint;
 import dtoavkbindings.cimgui : ImDrawData;
 
-enum IMGUI_VK_QUEUED_FRAMES =      2;
-
 // Please zero-clear before use.
 struct ImGui_ImplVulkan_InitInfo
 {
@@ -33,8 +31,11 @@ struct ImGui_ImplVulkan_InitInfo
     VkQueue                         Queue;
     VkPipelineCache                 PipelineCache;
     VkDescriptorPool                DescriptorPool;
+    uint                            MinImageCount;  // >= 2
+    uint                            ImageCount;     // >= MinImageCount
+    VkSampleCountFlags              MSAASamples;    // >= VK_SAMPLE_COUNT_1_BIT
     const (VkAllocationCallbacks)*  Allocator;
-    void function(VkResult err)CheckVkResultFn;
+    void function(VkResult err)     CheckVkResultFn;
 };
 
 // Called by user code
@@ -49,83 +50,4 @@ extern(C) void ImGui_ImplVulkan_RenderDrawData(
 extern(C) bool ImGui_ImplVulkan_CreateFontsTexture(
   VkCommandBuffer command_buffer
 );
-extern(C) void ImGui_ImplVulkan_InvalidateFontUploadObjects();
-extern(C) bool ImGui_ImplVulkan_CreateDeviceObjects();
-extern(C) void ImGui_ImplVulkan_InvalidateDeviceObjects();
-
-
-//-------------------------------------------------------------------------
-// Internal / Miscellaneous Vulkan Helpers
-//-------------------------------------------------------------------------
-// You probably do NOT need to use or care about those functions.  Those
-// functions only exist because:
-//   1) they facilitate the readability and maintenance of the multiple main.cpp
-//   examples files.
-//   2) the upcoming multi-viewport feature will need them internally.
-// Generally we avoid exposing any kind of superfluous high-level helpers in the
-// bindings, but it is too much code to duplicate everywhere so we exceptionally
-// expose them.  Your application/engine will likely already have code to setup
-// all that stuff (swap chain, render pass, frame buffers, etc.).  You may read
-// this code to learn about Vulkan, but it is recommended you use you own custom
-// tailored code to do equivalent work.  (those functions do not interact with
-// any of the state used by the regular ImGui_ImplVulkan_XXX functions)
-//-------------------------------------------------------------------------
-
-extern(C) void ImGui_ImplVulkanH_CreateWindowDataCommandBuffers(
-  VkPhysicalDevice physical_device, VkDevice device, uint32_t queue_family,
-  ImGui_ImplVulkanH_WindowData* wd, const (VkAllocationCallbacks)* allocator
-);
-extern(C) void ImGui_ImplVulkanH_CreateWindowDataSwapChainAndFramebuffer(
-  VkPhysicalDevice physical_device, VkDevice device,
-  ImGui_ImplVulkanH_WindowData* wd, const (VkAllocationCallbacks)* allocator,
-  int w, int h
-);
-extern(C) void ImGui_ImplVulkanH_DestroyWindowData(
-  VkInstance instance, VkDevice device, ImGui_ImplVulkanH_WindowData* wd,
-  const (VkAllocationCallbacks)* allocator
-);
-extern(C) VkSurfaceFormatKHR ImGui_ImplVulkanH_SelectSurfaceFormat(
-  VkPhysicalDevice physical_device, VkSurfaceKHR surface,
-  const (VkFormat)* request_formats, int request_formats_count,
-  VkColorSpaceKHR request_color_space
-);
-extern(C) VkPresentModeKHR ImGui_ImplVulkanH_SelectPresentMode(
-  VkPhysicalDevice physical_device, VkSurfaceKHR surface,
-  const (VkPresentModeKHR)* request_modes, int request_modes_count
-);
-extern(C) int ImGui_ImplVulkanH_GetMinImageCountFromPresentMode(
-  VkPresentModeKHR present_mode
-);
-
-// Helper structure to hold the data needed by one rendering frame
-struct ImGui_ImplVulkanH_FrameData
-{
-    uint32_t            BackbufferIndex;
-    VkCommandPool       CommandPool;
-    VkCommandBuffer     CommandBuffer;
-    VkFence             Fence;
-    VkSemaphore         ImageAcquiredSemaphore;
-    VkSemaphore         RenderCompleteSemaphore;
-
-};
-
-// Helper structure to hold the data needed by one rendering context into one OS
-// window
-struct ImGui_ImplVulkanH_WindowData
-{
-    int                 Width;
-    int                 Height;
-    VkSwapchainKHR      Swapchain;
-    VkSurfaceKHR        Surface;
-    VkSurfaceFormatKHR  SurfaceFormat;
-    VkPresentModeKHR    PresentMode;
-    VkRenderPass        RenderPass;
-    bool                ClearEnable;
-    VkClearValue        ClearValue;
-    uint32_t            BackBufferCount;
-    VkImage[16]             BackBuffer;
-    VkImageView[16]         BackBufferView;
-    VkFramebuffer[16]       Framebuffer;
-    uint32_t            FrameIndex;
-    ImGui_ImplVulkanH_FrameData[IMGUI_VK_QUEUED_FRAMES] Frames;
-};
+extern(C) void ImGui_ImplVulkan_DestroyFontUploadObjects();
