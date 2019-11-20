@@ -1144,6 +1144,8 @@ struct ImGuiListClipper
     int DisplayEnd;
 }
 
+enum ImDrawCallback_ResetRenderState = cast(ImDrawCallback)(-1);
+
 struct ImDrawCmd
 {
     uint ElemCount;

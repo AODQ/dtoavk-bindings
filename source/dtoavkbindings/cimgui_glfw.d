@@ -213,6 +213,7 @@ extern(C) static void ImGui_ImplGlfw_UpdateMousePosAndButtons()
     const ImVec2 mouse_pos_backup = io.MousePos;
     io.MousePos = ImVec2(-float.max, -float.max);
     const bool focused = glfwGetWindowAttrib(g_Window, GLFW_FOCUSED) != 0;
+    import core.stdc.stdio;
     if (focused)
     {
         if (io.WantSetMousePos)
