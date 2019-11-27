@@ -9,6 +9,6 @@ dependency "neobc" version=">=0.0.0"
 versions "BindGLFW_Static" "GLFW_32"
 subConfiguration "bindbc-glfw" "staticBC"
 
-libs "glfw" "vulkan" "imgui" "png" "tinyobj" "cimgui"
+libs "glfw" "vulkan" "cimgui"
 
 dflags "-betterC"
